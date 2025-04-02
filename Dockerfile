@@ -3,15 +3,16 @@ FROM node:18 AS builder
 
 # Set working directory
 WORKDIR /app
+RUN mkdir -p /app  # Ensure /app is a directory
 
 # Copy package.json and package-lock.json
-COPY package.json package-lock.json .  # Correct COPY command
+COPY ./package.json ./package-lock.json /app/
 
 # Install dependencies
 RUN npm install --production --frozen-lockfile
 
 # Copy the rest of the application files
-COPY . .
+COPY . /app/
 
 # Build the application (if needed)
 RUN npm run build
@@ -20,6 +21,7 @@ RUN npm run build
 FROM node:18 AS runtime
 
 WORKDIR /app
+RUN mkdir -p /app  # Ensure /app is a directory
 
 # Copy built files from builder stage
 COPY --from=builder /app .
