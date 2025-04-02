@@ -22,6 +22,10 @@ jobs:
 
       - name: Configure Docker
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      - name: Debug Environment Variables
+        run: |
+          echo "GCP_PROJECT_ID=${{ vars.GCP_PROJECT_ID }}"
+          echo "GCR_REPO_NAME=${{ vars.GCR_REPO_NAME }}"  
       - name: Build
         env:
           IMAGE_NAME: backend
