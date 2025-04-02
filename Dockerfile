@@ -14,9 +14,6 @@ RUN npm install --production --frozen-lockfile
 # Copy the rest of the application files
 COPY . /app/
 
-# Build the application (if needed)
-RUN npm run build
-
 # Use a smaller final image
 FROM node:18 AS runtime
 
